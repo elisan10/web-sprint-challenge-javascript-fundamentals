@@ -2,6 +2,8 @@
 /* 🚀🚀🚀🤓 Task 1: 🤓🚀🚀🚀 
 Study the code below and explain in your own words why nested function can access the variable internal. */
 
+
+
 const external = "I'm outside the function";
 
 function myFunction() {
@@ -18,7 +20,9 @@ myFunction();
 //🚀🚀🚀 ⬇️ 📝 Explanation ⬇️ 📝 🚀🚀🚀: 
 
 
-
+// The nested function is able to have access to the 'internal' variable because of scope and closure. We are dealing with a 
+// funcion scope where the internal function is able to have access to whatever is within the main function. Because it is a child function inheriting the parent function's 
+// variables/functions, the parent cannot inherit the child's variables and inner functions.
 
 
 /* 🚀🚀🚀 Task 2: Counter 🚀🚀🚀 */
@@ -28,10 +32,13 @@ myFunction();
     
 For example, `summation(4)` should return 10 because 1+2+3+4 is 10. Note, you may use a for loop for this function if you wish */
 
-function summation(/*Your Code Here*/) {
-  /*Your Code Here*/
-
+function summation(number){
+  let sum = 0
+  for(let i = 0; i <= number; i++){
+    sum += i
   }
+  return sum
+}
  
 
 // 🦁🦁🦁 Topic 2: ADVANCED Array Methods 🦁🦁🦁
@@ -56,8 +63,14 @@ const zooAnimals = [
   displayNames will be an array of strings, and each string should follow this pattern: "name: {name}, scientific: {scientific name}"
   */
 
-  function animalNames(/*Your Code Here*/){
-    /*Your Code Here*/
+  function animalNames(array){
+    const frontOfHabitat = []
+    array.forEach(function(item){
+      const name = item.animal_name
+      const scientific = item.scientific_name
+      frontOfHabitat.push(`name: ${name}, scientific: ${scientific}`) 
+    })
+    return frontOfHabitat
   }
   
 
@@ -67,8 +80,11 @@ const zooAnimals = [
   For example: ['jackal, asiatic', .....]
   */
 
-  function lowerCaseNames(/*Your Code Here*/){
-    /*Your Code Here*/
+  function lowerCaseNames(array){
+    const convertLowerCase = array.map(function(item){
+      return item.animal_name.toLowerCase()
+    })
+    return convertLowerCase
   }
   
   
@@ -77,8 +93,13 @@ const zooAnimals = [
   Using lowPopulationAnimals use .filter() to create a new array of objects which contains only the animals with a population of less than 5.
   */
 
-  function lowPopulationAnimals(/*Your Code Here*/){
-    /*Your Code Here*/
+  function lowPopulationAnimals(array){
+    const lowPopulation = array.filter(function(item){
+      if(item.population < 5){
+        return item.population
+      }
+    })
+    return lowPopulation
   }
   
 
@@ -88,8 +109,11 @@ const zooAnimals = [
   Remember the reduce method takes two arguments: a callback (which itself takes two args - the accumulator and the item), and an initial value for the count.
   */
 
-  function USApop(/*Your Code Here*/){
-    /*Your Code Here*/
+  function USApop(array){
+    const populationSum = array.reduce(function(accumulator, item){
+      return accumulator + item.population
+    },0)
+    return populationSum
   }
   
   
@@ -101,35 +125,35 @@ const zooAnimals = [
     * The consume function should return the invocation of cb, passing a and b into cb as arguments
   */
 
-  function consume(/*Your Code Here */){
-    /*Your Code Here */
+  function consume(a, b, cb){
+    return cb(a, b)
   }
  
   
   /* 🦁🦁🦁 Step 2: Create several functions to callback with consume(); 🦁🦁🦁 */
  // 🦁🦁🦁 Use add to return the sum of two numbers 🦁🦁🦁
   
-function add(/*Your Code Here */){
-    /*Your Code Here*/
+function add(a,b){
+    return a + b
   }
 
 // 🦁🦁🦁 Use multiply to return the product of two numbers 🦁🦁🦁
   
-function multiply(/*Your Code Here */){
-   /*Your Code Here */
+function multiply(a,b){
+   return a * b
   }
 
  // 🦁🦁🦁 Use greeting to accept a first and last name and return "Hello {first-name} {last-name}, nice to meet you!" 🦁🦁🦁
   
-function greeting(/*Your Code Here */){
-   return /*Your Code Here */
+function greeting(firstName,lastName){
+   return `Hello ${firstName} ${lastName}, nice to meet you!`
   }
   
   // 🦁🦁🦁 Step 3: Check your work by un-commenting the following calls to consume(): 🦁🦁🦁 
   // ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️
-  // console.log(consume(2, 2, add)); // 4
-  // console.log(consume(10, 16, multiply)); // 160
-  // console.log(consume("Mary", "Poppins", greeting)); // Hello Mary Poppins, nice to meet you!
+  console.log(consume(2, 2, add)); // 4
+  console.log(consume(10, 16, multiply)); // 160
+  console.log(consume("Mary", "Poppins", greeting)); // Hello Mary Poppins, nice to meet you!
   
   
 // 🦁💪 Stretch: If you haven't already, convert your array method callbacks into arrow functions - make sure you comment out this section before you submit your work 🦁💪
@@ -143,8 +167,10 @@ function greeting(/*Your Code Here */){
 /* 🐴🐴🐴 Step 1: Base Constructor 🐴🐴🐴
  Use the constructor function named CuboidMaker to accept properties for length, width, and height which can be initialized as an object
 */
-function CuboidMaker(/*Your Code Here */){
-  /*Your Code Here */
+function CuboidMaker(attributes){
+  this.length = attributes.length
+  this.width = attributes.width
+  this.height = attributes.height
 }
 
 
@@ -152,7 +178,9 @@ function CuboidMaker(/*Your Code Here */){
   Create a method called volume using CuboidMaker's prototype that returns the volume of a given cuboid's length, width, and height
   Formula for cuboid volume: length * width * height   */
 
-
+CuboidMaker.prototype.volume = function(){
+  return this.length * this.width * this.height
+}
 
 
 
@@ -160,7 +188,9 @@ function CuboidMaker(/*Your Code Here */){
   Create another method called surfaceArea using CuboidMaker's prototype that returns the surface area of a given cuboid's length, width, and height. 
   Formula for cuboid surface area of a cube: 
   2 * (length * width + length * height + width * height)  */
-
+CuboidMaker.prototype.surfaceArea = function(){
+  return 2 * ((this.length * this.width) + (this.length * this.height) + (this.width * this.height))
+}
 
 
 
@@ -169,26 +199,38 @@ function CuboidMaker(/*Your Code Here */){
   Create an object called cuboid that uses the new keyword to use our CuboidMaker constructor
   Add properties and values of length: 4, width: 5, and height: 5 to cuboid. */
 
-
+const cuboid = new CuboidMaker({
+  length: 4,
+  width: 5,
+  height: 5,
+})
 
 
 
 // 🐴🐴🐴 Test your volume and surfaceArea methods by uncommenting the logs below: 🐴🐴🐴
 // ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️
-// console.log(cuboid.volume()); // 100
-// console.log(cuboid.surfaceArea()); // 130
+console.log(cuboid.volume()); // 100
+console.log(cuboid.surfaceArea()); // 130
  
 
 // 🦄🦄🦄 Topic 4: Classes 🦄🦄🦄 //
 //🦄🦄🦄 1. Take your prototypes from above and refactor into class syntax. Please rename your class CuboidMakerTwo and your object cuboidTwo 🦄🦄🦄
-class CuboidMakerTwo{
-
+class CuboidMakerTwo extends CuboidMaker{
+  constructor(attributes){
+    super(attributes)
+  }
 }
+
+const cuboidTwo = new CuboidMakerTwo({
+  length: 4,
+  width: 5,
+  height: 5,
+})
 
 
 //🦄🦄🦄 Test your volume and surfaceArea methods by uncommenting the logs below: 🦄🦄🦄
-// console.log(cuboidTwo.volume()); // 100
-// console.log(cuboidTwo.surfaceArea()); // 130
+console.log(cuboidTwo.volume()); // 100
+console.log(cuboidTwo.surfaceArea()); // 130
 
 
 
